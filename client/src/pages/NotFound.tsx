@@ -7,7 +7,11 @@ export default function NotFound() {
   const [, setLocation] = useLocation();
 
   const handleGoHome = () => {
-    setLocation("/");
+    const basePath =
+      typeof window !== "undefined" && window.location.pathname.startsWith("/global-fly")
+        ? "/global-fly"
+        : "";
+    setLocation(`${basePath}/`);
   };
 
   return (

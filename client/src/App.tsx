@@ -5,12 +5,23 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Livestream from "./pages/Livestream";
+import Sponsors from "./pages/Sponsors";
+import Story from "./pages/Story";
 
 
 function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/global-fly"} component={Home} />
+      <Route path={"/global-fly/"} component={Home} />
+      <Route path={"/sponsors"} component={Sponsors} />
+      <Route path={"/global-fly/sponsors"} component={Sponsors} />
+      <Route path={"/livestream"} component={Livestream} />
+      <Route path={"/global-fly/livestream"} component={Livestream} />
+      <Route path={"/story"} component={Story} />
+      <Route path={"/global-fly/story"} component={Story} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
