@@ -13,6 +13,7 @@ import { MapPin, Clock, Gauge, ChevronDown, Facebook, Instagram, Youtube } from 
 
 export default function Home() {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const imagePath = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 
   const endorsements = [
     { name: "王立祺", title: "航太工程師、航空史作家", quote: "得知睿哲即將駕機環繞世界，我內心充滿欽羨與敬佩。五十多年前，當我剛取得飛行執照時，也曾懷抱這樣的夢想，卻因缺乏資源與後援而難以實現。擁有自己的飛機、強大的支持系統，對當時的我而言是遙不可及的。然而，如今睿哲即將踏上這趟旅程，不僅是實現個人夢想，也像是在替我圓夢。我誠摯祝福並真實質助，並邀請大家一起支持他，讓這次飛行不僅成就個人夢想，更書寫台灣航空史的新篇章！" },
@@ -50,7 +51,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 text-center relative overflow-hidden min-h-screen flex items-center justify-center" style={{
-        backgroundImage: 'url(/images/mainpics.png)',
+        backgroundImage: `url(${imagePath("images/mainpics.png")})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed'
@@ -152,7 +153,7 @@ export default function Home() {
           
           {/* Map Placeholder */}
           <div className="bg-gradient-to-br from-gray-900 to-black rounded-lg border border-cyan-500/30 overflow-hidden mb-12">
-            <img src="/images/flight_route_map.png" alt="Flight Route Map" className="w-full h-auto" />
+            <img src={imagePath("images/flight_route_map.png")} alt="Flight Route Map" className="w-full h-auto" />
           </div>
 
           {/* Flight Info */}
@@ -214,37 +215,37 @@ export default function Home() {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src="/images/JC_Wings_logo.jpg" alt="JC Wings" className="max-w-full max-h-24 object-contain" />
+              <img src={imagePath("images/JC_Wings_logo.jpg")} alt="JC Wings" className="max-w-full max-h-24 object-contain" />
             </div>
             <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src="/images/toontec-solutions.jpg" alt="Toontec Solutions" className="max-w-full max-h-24 object-contain" />
+              <img src={imagePath("images/toontec-solutions.jpg")} alt="Toontec Solutions" className="max-w-full max-h-24 object-contain" />
             </div>
             <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src="/images/ALB-MODELS_LOGO.jpg" alt="ALB-MODELS" className="max-w-full max-h-24 object-contain" />
+              <img src={imagePath("images/ALB-MODELS_LOGO.jpg")} alt="ALB-MODELS" className="max-w-full max-h-24 object-contain" />
             </div>
             <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src="/images/images.png" alt="Sponsor" className="max-w-full max-h-24 object-contain" />
+              <img src={imagePath("images/images.png")} alt="Sponsor" className="max-w-full max-h-24 object-contain" />
             </div>
             <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src="/images/unnamed(2).png" alt="Contributor" className="max-w-full max-h-24 object-contain" />
+              <img src={imagePath("images/unnamed(2).png")} alt="Contributor" className="max-w-full max-h-24 object-contain" />
             </div>
             <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src="/images/unnamed(3).png" alt="Contributor" className="max-w-full max-h-24 object-contain" />
+              <img src={imagePath("images/unnamed(3).png")} alt="Contributor" className="max-w-full max-h-24 object-contain" />
             </div>
             <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src="/images/unnamed(4).png" alt="Contributor" className="max-w-full max-h-24 object-contain" />
+              <img src={imagePath("images/unnamed(4).png")} alt="Contributor" className="max-w-full max-h-24 object-contain" />
             </div>
             <div className="bg-white p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src="/images/unnamed(1).png" alt="WINGTIPS" className="max-w-full max-h-24 object-contain" />
+              <img src={imagePath("images/unnamed(1).png")} alt="WINGTIPS" className="max-w-full max-h-24 object-contain" />
             </div>
             <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src="/images/sponsors_1.png" alt="Contributor" className="max-w-full max-h-24 object-contain" />
+              <img src={imagePath("images/sponsors_1.png")} alt="Contributor" className="max-w-full max-h-24 object-contain" />
             </div>
             <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src="/images/sponsors_2.png" alt="Contributor" className="max-w-full max-h-24 object-contain" />
+              <img src={imagePath("images/sponsors_2.png")} alt="Contributor" className="max-w-full max-h-24 object-contain" />
             </div>
             <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src="/images/WhatsAppImage2026-05-01at15.31.42.jpeg" alt="Supporter" className="max-w-full max-h-24 object-contain" />
+              <img src={imagePath("images/WhatsAppImage2026-05-01at15.31.42.jpeg")} alt="Supporter" className="max-w-full max-h-24 object-contain" />
             </div>
           </div>
         </div>
@@ -566,7 +567,7 @@ export default function Home() {
             <div className="flex flex-col items-center">
               <div className="bg-white p-6 rounded-lg mb-6 shadow-lg">
                 <img 
-                  src="/images/linepay-qrcode.png" 
+                  src={imagePath("images/linepay-qrcode.png")}
                   alt="Line Pay QR Code" 
                   className="w-64 h-64 object-contain"
                 />
