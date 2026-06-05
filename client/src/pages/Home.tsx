@@ -49,8 +49,13 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent"></div>
+      <section className="pt-32 pb-20 px-4 text-center relative overflow-hidden min-h-screen flex items-center justify-center" style={{
+        backgroundImage: 'url(/images/mainpics.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      }}>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/60"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <h1 className="text-6xl md:text-7xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
             N688TW
@@ -64,20 +69,20 @@ export default function Home() {
           </p>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-            <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-4 rounded-lg border border-cyan-500/30">
+            <div className="bg-black p-4 rounded-lg border border-cyan-500/30">
               <div className="text-2xl font-bold text-cyan-400">25,125</div>
-              <div className="text-sm text-gray-400">海里總航程</div>
+              <div className="text-sm text-gray-400">海裡總航程</div>
             </div>
-            <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-4 rounded-lg border border-cyan-500/30">
+            <div className="bg-black p-4 rounded-lg border border-cyan-500/30">
               <div className="text-2xl font-bold text-cyan-400">180</div>
               <div className="text-sm text-gray-400">預計飛行時數</div>
             </div>
-            <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-4 rounded-lg border border-cyan-500/30">
+            <div className="bg-black p-4 rounded-lg border border-cyan-500/30">
               <div className="text-2xl font-bold text-cyan-400">15</div>
               <div className="text-sm text-gray-400">主要航點</div>
             </div>
-            <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-4 rounded-lg border border-cyan-500/30">
-              <div className="text-2xl font-bold text-cyan-400">20+</div>
+            <div className="bg-black p-4 rounded-lg border border-cyan-500/30">
+              <div className="text-2xl font-bold text-cyan-400">10+</div>
               <div className="text-sm text-gray-400">國家</div>
             </div>
           </div>
@@ -142,19 +147,12 @@ export default function Home() {
 
       {/* Flight Route Map Section */}
       <section id="route" className="py-20 px-4">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center">環球飛行路線</h2>
           
           {/* Map Placeholder */}
           <div className="bg-gradient-to-br from-gray-900 to-black rounded-lg border border-cyan-500/30 overflow-hidden mb-12">
-            <div className="aspect-video bg-black flex items-center justify-center relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 via-transparent to-blue-500/5"></div>
-              <div className="relative z-10 text-center">
-                <MapPin className="w-16 h-16 text-cyan-400 mx-auto mb-4 opacity-50" />
-                <p className="text-gray-400">世界地圖 - 飛行路線展示</p>
-                <p className="text-sm text-gray-500 mt-2">（請上傳高質量地圖圖片）</p>
-              </div>
-            </div>
+            <img src="/images/flight_route_map.png" alt="Flight Route Map" className="w-full h-auto" />
           </div>
 
           {/* Flight Info */}
@@ -181,7 +179,7 @@ export default function Home() {
                 <li><span className="text-cyan-400">總航程:</span> 25,125 nm</li>
                 <li><span className="text-cyan-400">飛行時數:</span> ~180 小時</li>
                 <li><span className="text-cyan-400">航點數:</span> 15 個</li>
-                <li><span className="text-cyan-400">國家數:</span> 20+</li>
+                <li><span className="text-cyan-400">國家數:</span> 10+</li>
               </ul>
             </div>
 
@@ -198,43 +196,55 @@ export default function Home() {
               </ul>
             </div>
           </div>
+
+          {/* Where Am I - Live Tracking */}
+          <div className="mb-12">
+            <h3 className="text-2xl font-bold mb-6 text-center">我在哪裡</h3>
+            <div dangerouslySetInnerHTML={{
+              __html: '<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="100%" height="600" src="https://www.airnavradar.com/data/registration/N688TW?zoom=3"></iframe>'
+            }} />
+          </div>
         </div>
       </section>
 
-      {/* Sponsors Section */}
+      {/* Sponsors & Contributors Section */}
       <section className="py-20 px-4 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center">主要贊助商</h2>
+          <h2 className="text-4xl font-bold mb-12 text-center">贊助與貢獻者</h2>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-8 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-48">
-              <div className="text-center">
-                <div className="w-24 h-24 bg-gray-800 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-gray-500">JC Wings Logo</span>
-                </div>
-                <p className="font-bold">JC Wings</p>
-                <p className="text-sm text-gray-400">主要贊助商</p>
-              </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
+              <img src="/images/JC_Wings_logo.jpg" alt="JC Wings" className="max-w-full max-h-24 object-contain" />
             </div>
-            
-            <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-8 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-48">
-              <div className="text-center">
-                <div className="w-24 h-24 bg-gray-800 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-gray-500">Logo</span>
-                </div>
-                <p className="font-bold">待定</p>
-                <p className="text-sm text-gray-400">贊助商</p>
-              </div>
+            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
+              <img src="/images/toontec-solutions.jpg" alt="Toontec Solutions" className="max-w-full max-h-24 object-contain" />
             </div>
-            
-            <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-8 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-48">
-              <div className="text-center">
-                <div className="w-24 h-24 bg-gray-800 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                  <span className="text-gray-500">Logo</span>
-                </div>
-                <p className="font-bold">待定</p>
-                <p className="text-sm text-gray-400">贊助商</p>
-              </div>
+            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
+              <img src="/images/ALB-MODELS_LOGO.jpg" alt="ALB-MODELS" className="max-w-full max-h-24 object-contain" />
+            </div>
+            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
+              <img src="/images/images.png" alt="Sponsor" className="max-w-full max-h-24 object-contain" />
+            </div>
+            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
+              <img src="/images/unnamed(2).png" alt="Contributor" className="max-w-full max-h-24 object-contain" />
+            </div>
+            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
+              <img src="/images/unnamed(3).png" alt="Contributor" className="max-w-full max-h-24 object-contain" />
+            </div>
+            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
+              <img src="/images/unnamed(4).png" alt="Contributor" className="max-w-full max-h-24 object-contain" />
+            </div>
+            <div className="bg-white p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
+              <img src="/images/unnamed(1).png" alt="WINGTIPS" className="max-w-full max-h-24 object-contain" />
+            </div>
+            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
+              <img src="/images/sponsors_1.png" alt="Contributor" className="max-w-full max-h-24 object-contain" />
+            </div>
+            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
+              <img src="/images/sponsors_2.png" alt="Contributor" className="max-w-full max-h-24 object-contain" />
+            </div>
+            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
+              <img src="/images/WhatsAppImage2026-05-01at15.31.42.jpeg" alt="Supporter" className="max-w-full max-h-24 object-contain" />
             </div>
           </div>
         </div>
@@ -245,22 +255,117 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center">實時動態</h2>
           
-          <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-8 rounded-lg border border-cyan-500/30">
-            <div className="flex items-center gap-3 mb-6">
-              <Facebook className="w-6 h-6 text-cyan-400" />
-              <h3 className="text-xl font-bold">Facebook 最新動態</h3>
+          {/* Social Media Feed - Static Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Facebook Card */}
+            <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-lg border border-cyan-500/30 p-8 hover:border-cyan-500/50 transition">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center">
+                  <Facebook className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <div className="font-bold text-lg">Facebook 最新動態</div>
+                  <div className="text-xs text-cyan-400">飛行員林睿哲的自駕環球飛行</div>
+                </div>
+              </div>
+              
+              <p className="text-sm leading-relaxed mb-6 text-gray-300">
+                跟隨 N688TW 環球飛行的最新動態。了解飛行程進、紅人故事和對世界的探索。
+              </p>
+              
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-3">
+                  <span className="text-cyan-400 text-lg flex-shrink-0">✈</span>
+                  <div>
+                    <div className="font-semibold text-sm">飛行程進更新</div>
+                    <div className="text-xs text-gray-400">實時分享每一段旅程</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-cyan-400 text-lg flex-shrink-0">📸</span>
+                  <div>
+                    <div className="font-semibold text-sm">照片與故事</div>
+                    <div className="text-xs text-gray-400">世界各地的精彩時刻</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-cyan-400 text-lg flex-shrink-0">💬</span>
+                  <div>
+                    <div className="font-semibold text-sm">社群互動</div>
+                    <div className="text-xs text-gray-400">與粉絲們互動交流</div>
+                  </div>
+                </div>
+              </div>
+              
+              <a 
+                href="https://www.facebook.com/p/飛行員林睿哲的自駕環球飛行-Pilot-Rogers-Around-the-World-Flight-61574042008429/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-block w-full text-center px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50"
+              >
+                前往 Facebook →
+              </a>
             </div>
             
-            <iframe 
-              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fpeople%2F%E9%A3%9B%E8%A1%8C%E5%93%A1%E6%9E%97%E7%9D%BF%E5%93%B2%E7%9A%84%E8%87%AA%E9%A7%95%E7%92%B0%E7%90%83%E9%A3%9B%E8%A1%8C-Pilot-Rogers-Around-the-World-Flight%2F61574042008429&tabs=timeline&width=500&height=600&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId="
-              width="100%"
-              height="600"
-              style={{border: "none", overflow: "hidden"}}
-              scrolling="no"
-              frameBorder="0"
-              allowFullScreen={true}
-              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-            ></iframe>
+            {/* Threads/Instagram Card */}
+            <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-lg border border-cyan-500/30 p-8 hover:border-cyan-500/50 transition">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">@</span>
+                </div>
+                <div>
+                  <div className="font-bold text-lg">Threads 最新動態</div>
+                  <div className="text-xs text-cyan-400">@rogerworldflight</div>
+                </div>
+              </div>
+              
+              <p className="text-sm leading-relaxed mb-6 text-gray-300">
+                在 Threads 上跟隨我們的每一步。分享飛行的時刻、世界的美景和不一樣的經歷。
+              </p>
+              
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-3">
+                  <span className="text-pink-400 text-lg flex-shrink-0">🌍</span>
+                  <div>
+                    <div className="font-semibold text-sm">全球視角</div>
+                    <div className="text-xs text-gray-400">探索世界各地的風景</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-pink-400 text-lg flex-shrink-0">💭</span>
+                  <div>
+                    <div className="font-semibold text-sm">飛行後記</div>
+                    <div className="text-xs text-gray-400">分享飛行的感想與體驗</div>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-pink-400 text-lg flex-shrink-0">👥</span>
+                  <div>
+                    <div className="font-semibold text-sm">社群連結</div>
+                    <div className="text-xs text-gray-400">與全球飛行愛好者互動</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex gap-3">
+                <a 
+                  href="https://www.threads.com/@rogerworldflight" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex-1 text-center px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-500 hover:to-pink-400 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50"
+                >
+                  Threads →
+                </a>
+                <a 
+                  href="https://www.instagram.com/rogerworldflight/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex-1 text-center px-4 py-3 bg-gradient-to-r from-pink-600 to-orange-500 hover:from-pink-500 hover:to-orange-400 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/50"
+                >
+                  Instagram →
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -447,6 +552,71 @@ export default function Home() {
             <a href="#" className="text-gray-400 hover:text-cyan-400 transition">
               <Youtube className="w-8 h-8" />
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Sponsorship Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl font-bold mb-12 text-center">支持環球飛行計畫</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* QR Code Section */}
+            <div className="flex flex-col items-center">
+              <div className="bg-white p-6 rounded-lg mb-6 shadow-lg">
+                <img 
+                  src="/images/linepay-qrcode.png" 
+                  alt="Line Pay QR Code" 
+                  className="w-64 h-64 object-contain"
+                />
+              </div>
+              <p className="text-center text-sm text-gray-300 mb-4">掃描 QR Code 立即贊助</p>
+            </div>
+            
+            {/* Sponsorship Info Section */}
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-2xl font-bold text-cyan-400 mb-4">👉 立即透過 Line Pay</h3>
+                <p className="text-lg font-semibold mb-2">支持環球飛行計畫</p>
+                <p className="text-sm text-gray-400 mb-4">（委託萊特兄弟公司收款）</p>
+              </div>
+              
+              <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg border border-cyan-500/30 p-6">
+                <h4 className="font-bold text-cyan-400 mb-4">贊助步驟</h4>
+                <div className="space-y-3">
+                  <div className="flex gap-3">
+                    <span className="text-cyan-400 font-bold flex-shrink-0">1️⃣</span>
+                    <span className="text-sm text-gray-300">輸入贊助金額＆完成付款</span>
+                  </div>
+                  <div className="flex gap-3">
+                    <span className="text-cyan-400 font-bold flex-shrink-0">2️⃣</span>
+                    <span className="text-sm text-gray-300">付款完成後，請截圖交易畫面，並傳送至 Google 表單或電子郵件</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <a 
+                  href="https://forms.gle/MFrkKHbc7NY5FtKR9" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-block w-full text-center px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50"
+                >
+                  📋 提交 Google 表單
+                </a>
+                <a 
+                  href="mailto:pilot.roger.lin@gmail.com" 
+                  className="inline-block w-full text-center px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50"
+                >
+                  ✉️ 發送至 pilot.roger.lin@gmail.com
+                </a>
+              </div>
+              
+              <p className="text-xs text-gray-400 border-t border-cyan-500/20 pt-4">
+                備註：所有募資款項都由募資提案人林睿哲本人收款，款項將用於本計畫。
+              </p>
+            </div>
           </div>
         </div>
       </section>
