@@ -105,7 +105,7 @@ export default function Home() {
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-cyan-400 mt-1">▸</span>
-                  <span>行政院青能獎入圍</span>
+                  <span>行政院青舵獎入圍</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-cyan-400 mt-1">▸</span>
@@ -216,9 +216,6 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
               <img src={imagePath("images/JC_Wings_logo.jpg")} alt="JC Wings" className="max-w-full max-h-24 object-contain" />
-            </div>
-            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src={imagePath("images/toontec-solutions.jpg")} alt="Toontec Solutions" className="max-w-full max-h-24 object-contain" />
             </div>
             <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
               <img src={imagePath("images/ALB-MODELS_LOGO.jpg")} alt="ALB-MODELS" className="max-w-full max-h-24 object-contain" />
@@ -628,9 +625,10 @@ export default function Home() {
           <p className="mb-4">© 2026 N688TW Global Aviation Mission | 林睿哲的自駕環球飛行</p>
           <p className="text-sm">
             追蹤我們的旅程 | 
-            <a href="https://www.facebook.com/people/飛行員林睿哲的自駕環球飛行-Pilot-Rogers-Around-the-World-Flight/61574042008429/" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 mx-2">Facebook</a> |
-            <a href="#" className="text-cyan-400 hover:text-cyan-300 mx-2">Instagram</a> |
-            <a href="#" className="text-cyan-400 hover:text-cyan-300 mx-2">YouTube</a>
+            <a href="https://www.facebook.com/profile.php?id=61574042008429#" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 mx-2">Facebook</a> |
+            <a href="https://www.instagram.com/rogerworldflight/" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 mx-2">Instagram</a> |
+            <a href="https://www.flightradar24.com/data/aircraft/n688tw" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 mx-2">Flightradar24</a> |
+            <a href="https://www.flightaware.com/live/flight/N688TW" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 mx-2">Flight Aware</a>
           </p>
         </div>
       </footer>
