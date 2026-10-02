@@ -1,0 +1,13 @@
+{
+  "title": "N688TW",
+  "subtitle": "林睿哲的自駕環球飛行",
+  "taglineZh": "純台籍飛行員 · 史上首位環球飛行",
+  "taglineEn": "THE FIRST EVER PILOT OF PURE TAIWANESE NATIONALITY TO FLY AROUND THE WORLD",
+  "backgroundImage": "images/mainpics.png",
+  "stats": [
+    { "value": "25,125", "label": "海裡總航程" },
+    { "value": "180", "label": "預計飛行時數" },
+    { "value": "15", "label": "主要航點" },
+    { "value": "10+", "label": "國家" }
+  ]
+}

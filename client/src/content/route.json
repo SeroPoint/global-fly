@@ -1,0 +1,35 @@
+{
+  "heading": "環球飛行路線",
+  "mapImage": "images/flight_route_map.png",
+  "aircraft": {
+    "title": "飛機詳情",
+    "items": [
+      { "label": "REG", "value": "N688TW" },
+      { "label": "機型", "value": "SLING 4 TSi" },
+      { "label": "機長", "value": "Roger Lin" },
+      { "label": "工程師", "value": "Filipe Rosa" }
+    ]
+  },
+  "stats": {
+    "title": "飛行統計",
+    "items": [
+      { "label": "總航程", "value": "25,125 nm" },
+      { "label": "飛行時數", "value": "~180 小時" },
+      { "label": "航點數", "value": "15 個" },
+      { "label": "國家數", "value": "10+" }
+    ]
+  },
+  "waypoints": {
+    "title": "主要航點",
+    "lines": [
+      "KEMT → PADK → RJCC → RCSS",
+      "RPVM → WPDL → WMKJ → VTSS",
+      "VNPR → OMFJ → OJAM → LKLN",
+      "BIRK → CYYR → KEMT"
+    ]
+  },
+  "liveTracking": {
+    "title": "我在哪裡",
+    "iframeSrc": "https://www.airnavradar.com/data/registration/N688TW?zoom=3"
+  }
+}

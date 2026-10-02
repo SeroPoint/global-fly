@@ -1,38 +1,45 @@
 import { useState } from "react";
 import { MapPin, Clock, Gauge, ChevronDown, Facebook, Instagram, Youtube } from "lucide-react";
+import heroData from "@/content/hero.json";
+import aboutData from "@/content/about.json";
+import routeData from "@/content/route.json";
+import sponsorsData from "@/content/sponsors.json";
+import socialData from "@/content/social.json";
+import storiesData from "@/content/stories.json";
+import ctaData from "@/content/cta.json";
+import linepayData from "@/content/linepay.json";
+import footerData from "@/content/footer.json";
+import navData from "@/content/nav.json";
 
 /**
- * Home Page - N688TW Global Aviation Mission (Single Page)
- * 
- * Design Philosophy: Minimalist Aerospace Futurism
- * - Deep black background with neon blue and gold accents
- * - Single page layout with smooth scrolling sections
- * - Interactive world map showing flight route
- * - Complete Facebook content integration with endorsements
+ * Home Page - N688TW Global Aviation Mission
+ * Content is driven by JSON files in client/src/content/ (editable via /admin Decap CMS).
  */
 
 export default function Home() {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
-  const imagePath = (path: string) => `${import.meta.env.BASE_URL}${path}`;
+  const imagePath = (path: string) => {
+    const clean = path.startsWith("/") ? path.slice(1) : path;
+    return `${import.meta.env.BASE_URL}${clean}`;
+  };
 
   return (
     <div className="min-h-screen bg-black text-white overflow-x-hidden">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-cyan-500/20">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="text-2xl font-bold text-cyan-400">N688TW</div>
+          <div className="text-2xl font-bold text-cyan-400">{navData.brand}</div>
           <div className="flex gap-6 text-sm">
-            <a href="#mission" className="hover:text-cyan-400 transition">任務</a>
-            <a href="#route" className="hover:text-cyan-400 transition">路線</a>
-            <a href="#story" className="hover:text-cyan-400 transition">故事</a>
-            <a href="#support" className="hover:text-cyan-400 transition">支持</a>
+            {navData.links.map((link) => (
+              <a key={link.anchor} href={link.anchor} className="hover:text-cyan-400 transition">{link.label}</a>
+            ))}
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4 text-center relative overflow-hidden min-h-screen flex items-center justify-center" style={{
-        backgroundImage: `url(${imagePath("images/mainpics.png")})`,
+        backgroundImage: `url(${imagePath(heroData.backgroundImage)})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed'
@@ -40,33 +47,19 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/50 to-black/60"></div>
         <div className="relative z-10 max-w-4xl mx-auto">
           <h1 className="text-6xl md:text-7xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
-            N688TW
+            {heroData.title}
           </h1>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">林睿哲的自駕環球飛行</h2>
-          <p className="text-xl text-gray-300 mb-8">
-            純台籍飛行員 · 史上首位環球飛行
-          </p>
-          <p className="text-lg text-cyan-300 mb-12">
-            THE FIRST EVER PILOT OF PURE TAIWANESE NATIONALITY TO FLY AROUND THE WORLD
-          </p>
-          
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{heroData.subtitle}</h2>
+          <p className="text-xl text-gray-300 mb-8">{heroData.taglineZh}</p>
+          <p className="text-lg text-cyan-300 mb-12">{heroData.taglineEn}</p>
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-            <div className="bg-black p-4 rounded-lg border border-cyan-500/30">
-              <div className="text-2xl font-bold text-cyan-400">25,125</div>
-              <div className="text-sm text-gray-400">海裡總航程</div>
-            </div>
-            <div className="bg-black p-4 rounded-lg border border-cyan-500/30">
-              <div className="text-2xl font-bold text-cyan-400">180</div>
-              <div className="text-sm text-gray-400">預計飛行時數</div>
-            </div>
-            <div className="bg-black p-4 rounded-lg border border-cyan-500/30">
-              <div className="text-2xl font-bold text-cyan-400">15</div>
-              <div className="text-sm text-gray-400">主要航點</div>
-            </div>
-            <div className="bg-black p-4 rounded-lg border border-cyan-500/30">
-              <div className="text-2xl font-bold text-cyan-400">10+</div>
-              <div className="text-sm text-gray-400">國家</div>
-            </div>
+            {heroData.stats.map((stat, i) => (
+              <div key={i} className="bg-black p-4 rounded-lg border border-cyan-500/30">
+                <div className="text-2xl font-bold text-cyan-400">{stat.value}</div>
+                <div className="text-sm text-gray-400">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -74,55 +67,39 @@ export default function Home() {
       {/* About Roger Lin */}
       <section className="py-20 px-4 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center">關於林睿哲</h2>
-          
+          <h2 className="text-4xl font-bold mb-12 text-center">{aboutData.heading}</h2>
+
           <div className="grid md:grid-cols-2 gap-12 mb-12">
             <div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-6">身份與角色</h3>
+              <h3 className="text-2xl font-bold text-cyan-400 mb-6">{aboutData.identity.title}</h3>
               <ul className="space-y-3 text-gray-300">
-                <li className="flex items-start gap-3">
-                  <span className="text-cyan-400 mt-1">▸</span>
-                  <span>WINGTIPS飛行夢想誌主編</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-cyan-400 mt-1">▸</span>
-                  <span>行政院青舵獎入圍</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-cyan-400 mt-1">▸</span>
-                  <span>教育部青年諮詢委員</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-cyan-400 mt-1">▸</span>
-                  <span>新北市政府優秀青年代表</span>
-                </li>
+                {aboutData.identity.items.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="text-cyan-400 mt-1">▸</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
             </div>
-            
+
             <div>
-              <h3 className="text-2xl font-bold text-cyan-400 mb-6">教育背景</h3>
+              <h3 className="text-2xl font-bold text-cyan-400 mb-6">{aboutData.education.title}</h3>
               <ul className="space-y-3 text-gray-300 mb-8">
-                <li className="flex items-start gap-3">
-                  <span className="text-cyan-400 mt-1">▸</span>
-                  <span>國立台灣大學管理學院碩士</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-cyan-400 mt-1">▸</span>
-                  <span>國立台灣大學昆蟲學系學士</span>
-                </li>
+                {aboutData.education.items.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <span className="text-cyan-400 mt-1">▸</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
               </ul>
-              
-              <h3 className="text-2xl font-bold text-cyan-400 mb-6">飛行資格</h3>
-              <p className="text-gray-300 text-sm">
-                FAA飛行員執照及儀表飛行資格，飛行經驗包括：EA500噴射機、Sling 2、PA-28、C172、DA-40、DA-42、PL-1（介壽號教練機）、CJ-6（中共初教六教練機）等。
-              </p>
+
+              <h3 className="text-2xl font-bold text-cyan-400 mb-6">{aboutData.qualification.title}</h3>
+              <p className="text-gray-300 text-sm">{aboutData.qualification.text}</p>
             </div>
           </div>
 
           <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 p-8 rounded-lg border border-cyan-500/30">
-            <p className="text-lg text-gray-200 leading-relaxed">
-              "我是林睿哲，準備挑戰自駕單引擎飛機環球飛行。這不只是夢想，更是一次讓世界看見台灣的機會！"
-            </p>
+            <p className="text-lg text-gray-200 leading-relaxed">"{aboutData.quote}"</p>
           </div>
         </div>
       </section>
@@ -130,60 +107,54 @@ export default function Home() {
       {/* Flight Route Map Section */}
       <section id="route" className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center">環球飛行路線</h2>
-          
-          {/* Map Placeholder */}
+          <h2 className="text-4xl font-bold mb-12 text-center">{routeData.heading}</h2>
+
           <div className="bg-gradient-to-br from-gray-900 to-black rounded-lg border border-cyan-500/30 overflow-hidden mb-12">
-            <img src={imagePath("images/flight_route_map.png")} alt="Flight Route Map" className="w-full h-auto" />
+            <img src={imagePath(routeData.mapImage)} alt="Flight Route Map" className="w-full h-auto" />
           </div>
 
-          {/* Flight Info */}
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-6 rounded-lg border border-cyan-500/30">
               <div className="flex items-center gap-3 mb-4">
                 <Gauge className="w-6 h-6 text-cyan-400" />
-                <h3 className="font-bold">飛機詳情</h3>
+                <h3 className="font-bold">{routeData.aircraft.title}</h3>
               </div>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li><span className="text-cyan-400">REG:</span> N688TW</li>
-                <li><span className="text-cyan-400">機型:</span> SLING 4 TSi</li>
-                <li><span className="text-cyan-400">機長:</span> Roger Lin</li>
-                <li><span className="text-cyan-400">工程師:</span> Filipe Rosa</li>
+                {routeData.aircraft.items.map((item, i) => (
+                  <li key={i}><span className="text-cyan-400">{item.label}:</span> {item.value}</li>
+                ))}
               </ul>
             </div>
 
             <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-6 rounded-lg border border-cyan-500/30">
               <div className="flex items-center gap-3 mb-4">
                 <Clock className="w-6 h-6 text-cyan-400" />
-                <h3 className="font-bold">飛行統計</h3>
+                <h3 className="font-bold">{routeData.stats.title}</h3>
               </div>
               <ul className="space-y-2 text-sm text-gray-300">
-                <li><span className="text-cyan-400">總航程:</span> 25,125 nm</li>
-                <li><span className="text-cyan-400">飛行時數:</span> ~180 小時</li>
-                <li><span className="text-cyan-400">航點數:</span> 15 個</li>
-                <li><span className="text-cyan-400">國家數:</span> 10+</li>
+                {routeData.stats.items.map((item, i) => (
+                  <li key={i}><span className="text-cyan-400">{item.label}:</span> {item.value}</li>
+                ))}
               </ul>
             </div>
 
             <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 p-6 rounded-lg border border-cyan-500/30">
               <div className="flex items-center gap-3 mb-4">
                 <MapPin className="w-6 h-6 text-cyan-400" />
-                <h3 className="font-bold">主要航點</h3>
+                <h3 className="font-bold">{routeData.waypoints.title}</h3>
               </div>
               <ul className="space-y-1 text-xs text-gray-300">
-                <li>KEMT → PADK → RJCC → RCSS</li>
-                <li>RPVM → WPDL → WMKJ → VTSS</li>
-                <li>VNPR → OMFJ → OJAM → LKLN</li>
-                <li>BIRK → CYYR → KEMT</li>
+                {routeData.waypoints.lines.map((line, i) => (
+                  <li key={i}>{line}</li>
+                ))}
               </ul>
             </div>
           </div>
 
-          {/* Where Am I - Live Tracking */}
           <div className="mb-12">
-            <h3 className="text-2xl font-bold mb-6 text-center">我在哪裡</h3>
+            <h3 className="text-2xl font-bold mb-6 text-center">{routeData.liveTracking.title}</h3>
             <div dangerouslySetInnerHTML={{
-              __html: '<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="100%" height="600" src="https://www.airnavradar.com/data/registration/N688TW?zoom=3"></iframe>'
+              __html: `<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" width="100%" height="600" src="${routeData.liveTracking.iframeSrc}"></iframe>`
             }} />
           </div>
         </div>
@@ -192,39 +163,14 @@ export default function Home() {
       {/* Sponsors & Contributors Section */}
       <section className="py-20 px-4 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center">贊助與貢獻者</h2>
-          
+          <h2 className="text-4xl font-bold mb-12 text-center">{sponsorsData.heading}</h2>
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src={imagePath("images/JC_Wings_logo.jpg")} alt="JC Wings" className="max-w-full max-h-24 object-contain" />
-            </div>
-            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src={imagePath("images/ALB-MODELS_LOGO.jpg")} alt="ALB-MODELS" className="max-w-full max-h-24 object-contain" />
-            </div>
-            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src={imagePath("images/images.png")} alt="Sponsor" className="max-w-full max-h-24 object-contain" />
-            </div>
-            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src={imagePath("images/unnamed(2).png")} alt="Contributor" className="max-w-full max-h-24 object-contain" />
-            </div>
-            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src={imagePath("images/unnamed(3).png")} alt="Contributor" className="max-w-full max-h-24 object-contain" />
-            </div>
-            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src={imagePath("images/unnamed(4).png")} alt="Contributor" className="max-w-full max-h-24 object-contain" />
-            </div>
-            <div className="bg-white p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src={imagePath("images/unnamed(1).png")} alt="WINGTIPS" className="max-w-full max-h-24 object-contain" />
-            </div>
-            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src={imagePath("images/sponsors_1.png")} alt="Contributor" className="max-w-full max-h-24 object-contain" />
-            </div>
-            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src={imagePath("images/sponsors_2.png")} alt="Contributor" className="max-w-full max-h-24 object-contain" />
-            </div>
-            <div className="bg-black p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32">
-              <img src={imagePath("images/WhatsAppImage2026-05-01at15.31.42.jpeg")} alt="Supporter" className="max-w-full max-h-24 object-contain" />
-            </div>
+            {sponsorsData.items.map((sponsor, i) => (
+              <div key={i} className={`${sponsor.whiteBg ? "bg-white" : "bg-black"} p-6 rounded-lg border border-cyan-500/30 flex items-center justify-center min-h-32`}>
+                <img src={imagePath(sponsor.image)} alt={sponsor.alt} className="max-w-full max-h-24 object-contain" />
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -232,9 +178,8 @@ export default function Home() {
       {/* Facebook Live Feed */}
       <section className="py-20 px-4 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center">實時動態</h2>
-          
-          {/* Social Media Feed - Static Cards */}
+          <h2 className="text-4xl font-bold mb-12 text-center">{socialData.heading}</h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Facebook Card */}
             <div className="bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-lg border border-cyan-500/30 p-8 hover:border-cyan-500/50 transition">
@@ -243,49 +188,35 @@ export default function Home() {
                   <Facebook className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <div className="font-bold text-lg">Facebook 最新動態</div>
-                  <div className="text-xs text-cyan-400">飛行員林睿哲的自駕環球飛行</div>
+                  <div className="font-bold text-lg">{socialData.facebook.title}</div>
+                  <div className="text-xs text-cyan-400">{socialData.facebook.subtitle}</div>
                 </div>
               </div>
-              
-              <p className="text-sm leading-relaxed mb-6 text-gray-300">
-                跟隨 N688TW 環球飛行的最新動態。了解飛行程進、紅人故事和對世界的探索。
-              </p>
-              
+
+              <p className="text-sm leading-relaxed mb-6 text-gray-300">{socialData.facebook.description}</p>
+
               <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-3">
-                  <span className="text-cyan-400 text-lg flex-shrink-0">✈</span>
-                  <div>
-                    <div className="font-semibold text-sm">飛行程進更新</div>
-                    <div className="text-xs text-gray-400">實時分享每一段旅程</div>
+                {socialData.facebook.bullets.map((b, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="text-cyan-400 text-lg flex-shrink-0">{b.icon}</span>
+                    <div>
+                      <div className="font-semibold text-sm">{b.title}</div>
+                      <div className="text-xs text-gray-400">{b.text}</div>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-cyan-400 text-lg flex-shrink-0">📸</span>
-                  <div>
-                    <div className="font-semibold text-sm">照片與故事</div>
-                    <div className="text-xs text-gray-400">世界各地的精彩時刻</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-cyan-400 text-lg flex-shrink-0">💬</span>
-                  <div>
-                    <div className="font-semibold text-sm">社群互動</div>
-                    <div className="text-xs text-gray-400">與粉絲們互動交流</div>
-                  </div>
-                </div>
+                ))}
               </div>
-              
-              <a 
-                href="https://www.facebook.com/p/飛行員林睿哲的自駕環球飛行-Pilot-Rogers-Around-the-World-Flight-61574042008429/" 
-                target="_blank" 
+
+              <a
+                href={socialData.facebook.buttonUrl}
+                target="_blank"
                 rel="noopener noreferrer"
                 className="inline-block w-full text-center px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50"
               >
-                前往 Facebook →
+                {socialData.facebook.buttonText}
               </a>
             </div>
-            
+
             {/* Threads/Instagram Card */}
             <div className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-lg border border-cyan-500/30 p-8 hover:border-cyan-500/50 transition">
               <div className="flex items-center gap-3 mb-6">
@@ -293,51 +224,37 @@ export default function Home() {
                   <span className="text-white font-bold text-lg">@</span>
                 </div>
                 <div>
-                  <div className="font-bold text-lg">Threads 最新動態</div>
-                  <div className="text-xs text-cyan-400">@rogerworldflight</div>
+                  <div className="font-bold text-lg">{socialData.threads.title}</div>
+                  <div className="text-xs text-cyan-400">{socialData.threads.subtitle}</div>
                 </div>
               </div>
-              
-              <p className="text-sm leading-relaxed mb-6 text-gray-300">
-                在 Threads 上跟隨我們的每一步。分享飛行的時刻、世界的美景和不一樣的經歷。
-              </p>
-              
+
+              <p className="text-sm leading-relaxed mb-6 text-gray-300">{socialData.threads.description}</p>
+
               <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-3">
-                  <span className="text-pink-400 text-lg flex-shrink-0">🌍</span>
-                  <div>
-                    <div className="font-semibold text-sm">全球視角</div>
-                    <div className="text-xs text-gray-400">探索世界各地的風景</div>
+                {socialData.threads.bullets.map((b, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="text-pink-400 text-lg flex-shrink-0">{b.icon}</span>
+                    <div>
+                      <div className="font-semibold text-sm">{b.title}</div>
+                      <div className="text-xs text-gray-400">{b.text}</div>
+                    </div>
                   </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-pink-400 text-lg flex-shrink-0">💭</span>
-                  <div>
-                    <div className="font-semibold text-sm">飛行後記</div>
-                    <div className="text-xs text-gray-400">分享飛行的感想與體驗</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <span className="text-pink-400 text-lg flex-shrink-0">👥</span>
-                  <div>
-                    <div className="font-semibold text-sm">社群連結</div>
-                    <div className="text-xs text-gray-400">與全球飛行愛好者互動</div>
-                  </div>
-                </div>
+                ))}
               </div>
-              
+
               <div className="flex gap-3">
-                <a 
-                  href="https://www.threads.com/@rogerworldflight" 
-                  target="_blank" 
+                <a
+                  href={socialData.threads.threadsUrl}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 text-center px-4 py-3 bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-500 hover:to-pink-400 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50"
                 >
                   Threads →
                 </a>
-                <a 
-                  href="https://www.instagram.com/rogerworldflight/" 
-                  target="_blank" 
+                <a
+                  href={socialData.threads.instagramUrl}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 text-center px-4 py-3 bg-gradient-to-r from-pink-600 to-orange-500 hover:from-pink-500 hover:to-orange-400 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/50"
                 >
@@ -352,131 +269,56 @@ export default function Home() {
       {/* Story Section */}
       <section id="story" className="py-20 px-4 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center">林睿哲的故事</h2>
-          
+          <h2 className="text-4xl font-bold mb-12 text-center">{storiesData.heading}</h2>
+
           <div className="space-y-4">
-            {/* Story 1 */}
-            <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg border border-cyan-500/30 overflow-hidden">
-              <button
-                onClick={() => setExpandedSection(expandedSection === "story1" ? null : "story1")}
-                className="w-full p-6 flex items-center justify-between hover:bg-cyan-500/5 transition"
-              >
-                <div className="text-left">
-                  <h3 className="text-2xl font-bold text-cyan-400">夢想啟點：1990年代的種子</h3>
-                  <p className="text-gray-400 mt-2">五歲的悸動，遊樂場的搖搖飛機</p>
-                </div>
-                <ChevronDown className={`w-6 h-6 text-cyan-400 transition ${expandedSection === "story1" ? "rotate-180" : ""}`} />
-              </button>
-              
-              {expandedSection === "story1" && (
-                <div className="px-6 pb-6 border-t border-cyan-500/20 text-gray-300 space-y-4">
-                  <p>五歲那年，睿哲第一次對飛行產生興趣——不是在機場，而是在遊樂場的搖搖飛機上。當林睿哲坐上去的那一刻，感覺自己彷彿真的飛了起來，心中的悸動從此種下。林睿哲開始愛上家裡擺放的飛機模型，迷戀地撫摸著那些機身線條，對這些會飛的金屬巨鳥充滿無限想像。</p>
-                  <p>隨著年紀漸長，林睿哲不只是喜歡看飛機，還想要深入了解它們。國小時，每年暑假的作業裡，林睿哲總會畫上一架架飛機，無論是軍機、民航機，甚至是自己幻想設計的飛機。林睿哲的筆記本上滿是飛機的速寫，而最讓林睿哲興奮的，是每當發現報章雜誌中出現航空新聞，林睿哲總會迫不及待地向家人、老師、同學介紹：「這架飛機的型號，巡航速度是多少，……」即使大家不一定聽得懂，林睿哲依然樂此不疲。</p>
-                  <p>當其他孩子放學後沉迷於卡通或電動時，林睿哲則專注地閱讀飛行相關書籍。林睿哲不僅是個喜歡飛機的小男孩，更是個對飛行充滿熱情的探索者。</p>
-                  <p>由於父母忙於工作，從小學開始，每逢寒暑假，林睿哲的父母便委託地勤人員帶著睿哲獨自搭飛機。對大多數孩子來說，獨自搭機或許會讓人緊張，但對林睿哲而言，這是一場期待已久的旅程。林睿哲總是選擇靠窗的座位，仔細觀察著機翼上各種機關的運作，感受飛機加速起飛的瞬間，心跳總是不自覺地加快。</p>
-                  <p>每次飛行，林睿哲總會好奇地盯著駕駛艙的門，想像裡面是什麼樣的世界。終於某次落地後，林睿哲鼓起勇氣請求空服員帶自己參觀駕駛艙，機長微笑著點頭說道：「小弟弟，你好啊，我是機長！」，林睿哲的心中閃過一個念頭：「原來飛行員也是普通人，那麼，也許有一天，我也許能成為他們的一員。」</p>
-                </div>
-              )}
-            </div>
-
-            {/* Story 2 */}
-            <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg border border-cyan-500/30 overflow-hidden">
-              <button
-                onClick={() => setExpandedSection(expandedSection === "story2" ? null : "story2")}
-                className="w-full p-6 flex items-center justify-between hover:bg-cyan-500/5 transition"
-              >
-                <div className="text-left">
-                  <h3 className="text-2xl font-bold text-cyan-400">挫折與轉身：夢想的另一種守護</h3>
-                  <p className="text-gray-400 mt-2">從文字到天空，夢想再次啟航</p>
-                </div>
-                <ChevronDown className={`w-6 h-6 text-cyan-400 transition ${expandedSection === "story2" ? "rotate-180" : ""}`} />
-              </button>
-              
-              {expandedSection === "story2" && (
-                <div className="px-6 pb-6 border-t border-cyan-500/20 text-gray-300 space-y-4">
-                  <p>國中畢業後，林睿哲懷著滿腔熱血，走向空軍官校的招募攤位，想要報名成為飛行學員。然而，現實無情地澆熄了林睿哲的希望──視力未達標準（當時需要裸視1.0，且不接受雷射手術），無法成為軍機飛行員。家人也希望林睿哲專注於學業，於是，林睿哲暫時放下了飛行夢想。</p>
-                  <p>然而，放下並不代表遺忘。即便不能親自駕駛飛機，林睿哲仍然不斷地向天空投去渴望的目光。放學後，林睿哲經常獨自騎腳踏車到機場附近，站在跑道頭，看著飛機轟鳴著衝向藍天，想像自己有一天也能坐在駕駛艙內，親手操控這些夢想之翼。</p>
-                  <p>大學畢業後，林睿哲創辦了《Wingtips飛行夢想誌》，透過文字記錄航空故事，採訪國內外的航空業者，讓更多人認識飛行的美好。林睿哲以為，或許這樣就能彌補不能飛行的遺憾。然而，命運似乎不願讓林睿哲只停留在文字裡。一次偶然的機會，林睿哲參加了飛行學校的體驗飛行。當林睿哲握住操縱桿的那一刻，內心的悸動再次被點燃，林睿哲清楚地知道——這不僅是場體驗，而是條應該踏上的道路。</p>
-                  <p>於是，林睿哲鼓起勇氣，隻身飛往美國，開始為期半年的飛行訓練。沒有親友在身旁，語言、文化、環境全都陌生，但林睿哲知道，這是通往夢想的必經之路。經過無數次的努力與挑戰，終於考取了人生中的第一張飛行執照。</p>
-                </div>
-              )}
-            </div>
-
-            {/* Story 3 */}
-            <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg border border-cyan-500/30 overflow-hidden">
-              <button
-                onClick={() => setExpandedSection(expandedSection === "story3" ? null : "story3")}
-                className="w-full p-6 flex items-center justify-between hover:bg-cyan-500/5 transition"
-              >
-                <div className="text-left">
-                  <h3 className="text-2xl font-bold text-cyan-400">萬事俱備：專業與破釜沉舟</h3>
-                  <p className="text-gray-400 mt-2">行動的必要條件，克服環球飛行的高門檻</p>
-                </div>
-                <ChevronDown className={`w-6 h-6 text-cyan-400 transition ${expandedSection === "story3" ? "rotate-180" : ""}`} />
-              </button>
-              
-              {expandedSection === "story3" && (
-                <div className="px-6 pb-6 border-t border-cyan-500/20 text-gray-300 space-y-6">
-                  <div>
-                    <h4 className="text-lg font-bold text-cyan-400 mb-3">環球飛行不只是夢，而是行動</h4>
-                    <p>多年來，林睿哲一邊努力工作存錢，一邊回台大念碩士，一邊持續往返台灣、美國接受飛行訓練，陸續考取更多飛行相關檢定。即便疫情讓計畫延宕，林睿哲始終沒有放棄。經過多年努力，林睿哲終於逐一克服了自駕飛機環球所需的條件。</p>
-                  </div>
-
-                  <div>
-                    <h4 className="text-lg font-bold text-cyan-400 mb-3">克服環球飛行的高門檻</h4>
-                    <div className="space-y-4">
-                      <div className="bg-black/30 p-4 rounded-lg">
-                        <h5 className="font-bold text-cyan-300 mb-2">01 通過航空體檢</h5>
-                        <p className="text-sm">飛行員須具備正常聽力、健康的心電圖、合格視力及標準BMI等條件。為保持最佳身體狀態，睿哲平時自律節制飲食並規律運動。目前，睿哲已獲美國聯邦航空局第一級（最高等級）飛行員體檢證。</p>
-                      </div>
-                      
-                      <div className="bg-black/30 p-4 rounded-lg">
-                        <h5 className="font-bold text-cyan-300 mb-2">02 航空無線電能力</h5>
-                        <p className="text-sm">熟練掌握航空無線電術語至關重要。因此，飛行執照背面特別加註 English Proficient 以證明語言能力。睿哲定期接受飛行訓練，確保語言水平達標，時刻保持最佳飛行狀態。</p>
-                      </div>
-                      
-                      <div className="bg-black/30 p-4 rounded-lg">
-                        <h5 className="font-bold text-cyan-300 mb-2">03 擁有飛行執照與儀器飛行檢定證</h5>
-                        <p className="text-sm">睿哲持有受國際普遍承認的美國聯邦航空局（FAA）飛行執照及儀器飛行檢定證照，符合在國際航路上執行長途飛行的資格。</p>
-                      </div>
-                      
-                      <div className="bg-black/30 p-4 rounded-lg">
-                        <h5 className="font-bold text-cyan-300 mb-2">04 必須擁有自己的飛機</h5>
-                        <p className="text-sm">環球的先決條件是必須擁有自己的飛機，對睿哲而言，這曾是遙不可及的夢。然而，憑藉多年工作的積蓄與貴人相助，最終成功購得一架適合環球的Sling Tsi輕型飛機，註冊於美國、機號N688TW。</p>
-                      </div>
-                      
-                      <div className="bg-black/30 p-4 rounded-lg">
-                        <h5 className="font-bold text-cyan-300 mb-2">05 良好的財務支持</h5>
-                        <p className="text-sm">航油、維修、落地費等龐大開銷，讓無數飛行夢想止步於現實。然而，睿哲選擇不輕言放棄，來到這裡誠摯地尋求支持，盼望與您攜手，讓夢想真正起飛。</p>
-                      </div>
+            {storiesData.items.map((story) => {
+              const isExpanded = expandedSection === story.id;
+              return (
+                <div key={story.id} className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg border border-cyan-500/30 overflow-hidden">
+                  <button
+                    onClick={() => setExpandedSection(isExpanded ? null : story.id)}
+                    className="w-full p-6 flex items-center justify-between hover:bg-cyan-500/5 transition"
+                  >
+                    <div className="text-left">
+                      <h3 className="text-2xl font-bold text-cyan-400">{story.title}</h3>
+                      <p className="text-gray-400 mt-2">{story.subtitle}</p>
                     </div>
-                  </div>
-                </div>
-              )}
-            </div>
+                    <ChevronDown className={`w-6 h-6 text-cyan-400 transition ${isExpanded ? "rotate-180" : ""}`} />
+                  </button>
 
-            {/* Story 4 */}
-            <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg border border-cyan-500/30 overflow-hidden">
-              <button
-                onClick={() => setExpandedSection(expandedSection === "story4" ? null : "story4")}
-                className="w-full p-6 flex items-center justify-between hover:bg-cyan-500/5 transition"
-              >
-                <div className="text-left">
-                  <h3 className="text-2xl font-bold text-cyan-400">終極使命：2026 挑戰環球</h3>
-                  <p className="text-gray-400 mt-2">讓世界看見台灣，成就屬於台灣的自駕傳奇</p>
+                  {isExpanded && (
+                    <div className="px-6 pb-6 border-t border-cyan-500/20 text-gray-300 space-y-4">
+                      {story.intro && (
+                        <div>
+                          <h4 className="text-lg font-bold text-cyan-400 mb-3">{story.intro.heading}</h4>
+                          <p>{story.intro.text}</p>
+                        </div>
+                      )}
+                      {story.requirements && (
+                        <div>
+                          <h4 className="text-lg font-bold text-cyan-400 mb-3">{story.requirementsHeading}</h4>
+                          <div className="space-y-4">
+                            {story.requirements.map((r, i) => (
+                              <div key={i} className="bg-black/30 p-4 rounded-lg">
+                                <h5 className="font-bold text-cyan-300 mb-2">{r.number} {r.title}</h5>
+                                <p className="text-sm">{r.text}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      {story.paragraphs && story.paragraphs.map((p, i) => (
+                        <p key={i}>{p}</p>
+                      ))}
+                      {story.highlight && (
+                        <p className="text-lg font-bold text-cyan-300 mt-6">{story.highlight}</p>
+                      )}
+                    </div>
+                  )}
                 </div>
-                <ChevronDown className={`w-6 h-6 text-cyan-400 transition ${expandedSection === "story4" ? "rotate-180" : ""}`} />
-              </button>
-              
-              {expandedSection === "story4" && (
-                <div className="px-6 pb-6 border-t border-cyan-500/20 text-gray-300 space-y-4">
-                  <p>這不僅是林睿哲的個人夢想，更是一次讓世界看見台灣的機會。駕駛單引擎飛機挑戰環球飛行，成就屬於台灣的自駕傳奇。</p>
-                  <p>從美國出發，經過阿拉斯加、日本、台灣、東南亞、中東、歐洲，最後返回美國。這趟旅程將帶著台灣的夢想飛向世界各地。</p>
-                  <p>這不僅是一場飛行冒險，更是一個關於堅持、勇氣和夢想的故事。N688TW，準備好了嗎？世界，看好了嗎？</p>
-                  <p className="text-lg font-bold text-cyan-300 mt-6">激勵夢想 · 創造歷史 · 展現台灣</p>
-                </div>
-              )}
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -484,31 +326,34 @@ export default function Home() {
       {/* Call to Action */}
       <section id="support" className="py-20 px-4">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">追蹤我們的旅程</h2>
-          <p className="text-xl text-gray-300 mb-12">
-            加入我們，一起見證台灣飛行史上的壯舉
-          </p>
-          
+          <h2 className="text-4xl font-bold mb-6">{ctaData.heading}</h2>
+          <p className="text-xl text-gray-300 mb-12">{ctaData.subheading}</p>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <button className="px-8 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-black font-bold rounded-lg hover:shadow-lg hover:shadow-cyan-500/50 transition">
-              訂閱更新
+              {ctaData.primaryButton}
             </button>
             <button className="px-8 py-3 border border-cyan-500 text-cyan-400 font-bold rounded-lg hover:bg-cyan-500/10 transition">
-              了解更多
+              {ctaData.secondaryButton}
             </button>
           </div>
 
-          {/* Social Links */}
           <div className="flex justify-center gap-6">
-            <a href="https://www.facebook.com/people/飛行員林睿哲的自駕環球飛行-Pilot-Rogers-Around-the-World-Flight/61574042008429/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition">
-              <Facebook className="w-8 h-8" />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-cyan-400 transition">
-              <Instagram className="w-8 h-8" />
-            </a>
-            <a href="#" className="text-gray-400 hover:text-cyan-400 transition">
-              <Youtube className="w-8 h-8" />
-            </a>
+            {ctaData.social.facebook && (
+              <a href={ctaData.social.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition">
+                <Facebook className="w-8 h-8" />
+              </a>
+            )}
+            {ctaData.social.instagram && (
+              <a href={ctaData.social.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition">
+                <Instagram className="w-8 h-8" />
+              </a>
+            )}
+            {ctaData.social.youtube && (
+              <a href={ctaData.social.youtube} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-cyan-400 transition">
+                <Youtube className="w-8 h-8" />
+              </a>
+            )}
           </div>
         </div>
       </section>
@@ -516,62 +361,58 @@ export default function Home() {
       {/* Sponsorship Section */}
       <section className="py-20 px-4 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-bold mb-12 text-center">支持環球飛行計畫</h2>
-          
+          <h2 className="text-4xl font-bold mb-12 text-center">{linepayData.heading}</h2>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* QR Code Section */}
             <div className="flex flex-col items-center">
               <div className="bg-white p-6 rounded-lg mb-6 shadow-lg">
-                <img 
-                  src={imagePath("images/linepay-qrcode.png")}
-                  alt="Line Pay QR Code" 
+                <img
+                  src={imagePath(linepayData.qrImage)}
+                  alt="Line Pay QR Code"
                   className="w-64 h-64 object-contain"
                 />
               </div>
-              <p className="text-center text-sm text-gray-300 mb-4">掃描 QR Code 立即贊助</p>
+              <p className="text-center text-sm text-gray-300 mb-4">{linepayData.qrCaption}</p>
             </div>
-            
-            {/* Sponsorship Info Section */}
+
             <div className="space-y-6">
               <div>
-                <h3 className="text-2xl font-bold text-cyan-400 mb-4">👉 立即透過 Line Pay</h3>
-                <p className="text-lg font-semibold mb-2">支持環球飛行計畫</p>
-                <p className="text-sm text-gray-400 mb-4">（委託萊特兄弟公司收款）</p>
+                <h3 className="text-2xl font-bold text-cyan-400 mb-4">{linepayData.title}</h3>
+                <p className="text-lg font-semibold mb-2">{linepayData.subtitle}</p>
+                <p className="text-sm text-gray-400 mb-4">{linepayData.note}</p>
               </div>
-              
+
               <div className="bg-gradient-to-br from-cyan-500/10 to-blue-500/10 rounded-lg border border-cyan-500/30 p-6">
-                <h4 className="font-bold text-cyan-400 mb-4">贊助步驟</h4>
+                <h4 className="font-bold text-cyan-400 mb-4">{linepayData.stepsHeading}</h4>
                 <div className="space-y-3">
-                  <div className="flex gap-3">
-                    <span className="text-cyan-400 font-bold flex-shrink-0">1️⃣</span>
-                    <span className="text-sm text-gray-300">輸入贊助金額＆完成付款</span>
-                  </div>
-                  <div className="flex gap-3">
-                    <span className="text-cyan-400 font-bold flex-shrink-0">2️⃣</span>
-                    <span className="text-sm text-gray-300">付款完成後，請截圖交易畫面，並傳送至 Google 表單或電子郵件</span>
-                  </div>
+                  {linepayData.steps.map((step, i) => (
+                    <div key={i} className="flex gap-3">
+                      <span className="text-cyan-400 font-bold flex-shrink-0">{step.icon}</span>
+                      <span className="text-sm text-gray-300">{step.text}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-              
+
               <div className="space-y-3">
-                <a 
-                  href="https://forms.gle/MFrkKHbc7NY5FtKR9" 
-                  target="_blank" 
+                <a
+                  href={linepayData.formButton.url}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block w-full text-center px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-black font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/50"
                 >
-                  📋 提交 Google 表單
+                  {linepayData.formButton.text}
                 </a>
-                <a 
-                  href="mailto:pilot.roger.lin@gmail.com" 
+                <a
+                  href={linepayData.emailButton.url}
                   className="inline-block w-full text-center px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/50"
                 >
-                  ✉️ 發送至 pilot.roger.lin@gmail.com
+                  {linepayData.emailButton.text}
                 </a>
               </div>
-              
+
               <p className="text-xs text-gray-400 border-t border-cyan-500/20 pt-4">
-                備註：所有募資款項都由募資提案人林睿哲本人收款，款項將用於本計畫。
+                {linepayData.disclaimer}
               </p>
             </div>
           </div>
@@ -581,13 +422,15 @@ export default function Home() {
       {/* Footer */}
       <footer className="py-12 px-4 border-t border-cyan-500/20 bg-gradient-to-b from-transparent to-blue-500/5">
         <div className="max-w-4xl mx-auto text-center text-gray-400">
-          <p className="mb-4">© 2026 N688TW Global Aviation Mission | 林睿哲的自駕環球飛行</p>
+          <p className="mb-4">{footerData.copyright}</p>
           <p className="text-sm">
-            追蹤我們的旅程 | 
-            <a href="https://www.facebook.com/profile.php?id=61574042008429#" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 mx-2">Facebook</a> |
-            <a href="https://www.instagram.com/rogerworldflight/" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 mx-2">Instagram</a> |
-            <a href="https://www.flightradar24.com/data/aircraft/n688tw" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 mx-2">Flightradar24</a> |
-            <a href="https://www.flightaware.com/live/flight/N688TW" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 mx-2">Flight Aware</a>
+            {footerData.prefix}
+            {footerData.links.map((link, i) => (
+              <span key={i}>
+                {" | "}
+                <a href={link.url} target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:text-cyan-300 mx-2">{link.label}</a>
+              </span>
+            ))}
           </p>
         </div>
       </footer>

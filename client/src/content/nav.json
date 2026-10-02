@@ -1,0 +1,9 @@
+{
+  "brand": "N688TW",
+  "links": [
+    { "label": "任務", "anchor": "#mission" },
+    { "label": "路線", "anchor": "#route" },
+    { "label": "故事", "anchor": "#story" },
+    { "label": "支持", "anchor": "#support" }
+  ]
+}

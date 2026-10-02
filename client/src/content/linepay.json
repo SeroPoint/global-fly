@@ -1,0 +1,22 @@
+{
+  "heading": "支持環球飛行計畫",
+  "qrImage": "images/linepay-qrcode.png",
+  "qrCaption": "掃描 QR Code 立即贊助",
+  "title": "👉 立即透過 Line Pay",
+  "subtitle": "支持環球飛行計畫",
+  "note": "（委託萊特兄弟公司收款）",
+  "stepsHeading": "贊助步驟",
+  "steps": [
+    { "icon": "1️⃣", "text": "輸入贊助金額＆完成付款" },
+    { "icon": "2️⃣", "text": "付款完成後，請截圖交易畫面，並傳送至 Google 表單或電子郵件" }
+  ],
+  "formButton": {
+    "text": "📋 提交 Google 表單",
+    "url": "https://forms.gle/MFrkKHbc7NY5FtKR9"
+  },
+  "emailButton": {
+    "text": "✉️ 發送至 pilot.roger.lin@gmail.com",
+    "url": "mailto:pilot.roger.lin@gmail.com"
+  },
+  "disclaimer": "備註：所有募資款項都由募資提案人林睿哲本人收款，款項將用於本計畫。"
+}

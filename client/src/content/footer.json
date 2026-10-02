@@ -1,0 +1,10 @@
+{
+  "copyright": "© 2026 N688TW Global Aviation Mission | 林睿哲的自駕環球飛行",
+  "prefix": "追蹤我們的旅程",
+  "links": [
+    { "label": "Facebook", "url": "https://www.facebook.com/profile.php?id=61574042008429#" },
+    { "label": "Instagram", "url": "https://www.instagram.com/rogerworldflight/" },
+    { "label": "Flightradar24", "url": "https://www.flightradar24.com/data/aircraft/n688tw" },
+    { "label": "Flight Aware", "url": "https://www.flightaware.com/live/flight/N688TW" }
+  ]
+}

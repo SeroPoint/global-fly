@@ -1,0 +1,15 @@
+{
+  "heading": "贊助與貢獻者",
+  "items": [
+    { "image": "images/JC_Wings_logo.jpg", "alt": "JC Wings", "whiteBg": false },
+    { "image": "images/ALB-MODELS_LOGO.jpg", "alt": "ALB-MODELS", "whiteBg": false },
+    { "image": "images/images.png", "alt": "Sponsor", "whiteBg": false },
+    { "image": "images/unnamed(2).png", "alt": "Contributor", "whiteBg": false },
+    { "image": "images/unnamed(3).png", "alt": "Contributor", "whiteBg": false },
+    { "image": "images/unnamed(4).png", "alt": "Contributor", "whiteBg": false },
+    { "image": "images/unnamed(1).png", "alt": "WINGTIPS", "whiteBg": true },
+    { "image": "images/sponsors_1.png", "alt": "Contributor", "whiteBg": false },
+    { "image": "images/sponsors_2.png", "alt": "Contributor", "whiteBg": false },
+    { "image": "images/WhatsAppImage2026-05-01at15.31.42.jpeg", "alt": "Supporter", "whiteBg": false }
+  ]
+}
