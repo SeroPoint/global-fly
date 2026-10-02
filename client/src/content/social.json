@@ -3,23 +3,47 @@
   "facebook": {
     "title": "Facebook 最新動態",
     "subtitle": "飛行員林睿哲的自駕環球飛行",
-    "description": "跟隨 N688TW 環球飛行的最新動態。了解飛行程進、紅人故事和對世界的探索。",
+    "description": "了解飛行程進、紅人故事和對世界的探索。",
     "bullets": [
-      { "icon": "✈", "title": "飛行程進更新", "text": "實時分享每一段旅程" },
-      { "icon": "📸", "title": "照片與故事", "text": "世界各地的精彩時刻" },
-      { "icon": "💬", "title": "社群互動", "text": "與粉絲們互動交流" }
+      {
+        "icon": "✈",
+        "title": "飛行程進更新",
+        "text": "實時分享每一段旅程"
+      },
+      {
+        "icon": "📸",
+        "title": "照片與故事",
+        "text": "世界各地的精彩時刻"
+      },
+      {
+        "icon": "💬",
+        "title": "社群互動",
+        "text": "與粉絲們互動交流"
+      }
     ],
     "buttonText": "前往 Facebook →",
-    "buttonUrl": "https://www.facebook.com/profile.php?id=61574042008429#"
+    "buttonUrl": "https://www.facebook.com/rogerworldflight"
   },
   "threads": {
     "title": "Threads 最新動態",
     "subtitle": "@rogerworldflight",
     "description": "在 Threads 上跟隨我們的每一步。分享飛行的時刻、世界的美景和不一樣的經歷。",
     "bullets": [
-      { "icon": "🌍", "title": "全球視角", "text": "探索世界各地的風景" },
-      { "icon": "💭", "title": "飛行後記", "text": "分享飛行的感想與體驗" },
-      { "icon": "👥", "title": "社群連結", "text": "與全球飛行愛好者互動" }
+      {
+        "icon": "🌍",
+        "title": "全球視角",
+        "text": "探索世界各地的風景"
+      },
+      {
+        "icon": "💭",
+        "title": "飛行後記",
+        "text": "分享飛行的感想與體驗"
+      },
+      {
+        "icon": "👥",
+        "title": "社群連結",
+        "text": "與全球飛行愛好者互動"
+      }
     ],
     "threadsUrl": "https://www.threads.com/@rogerworldflight",
     "instagramUrl": "https://www.instagram.com/rogerworldflight/"
