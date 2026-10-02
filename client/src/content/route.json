@@ -1,5 +1,5 @@
 {
-  "heading": "環球飛行路線",
+  "heading": "預計飛行路線",
   "mapImage": "images/flight_route_map.png",
   "aircraft": {
     "title": "飛機詳情",
@@ -14,11 +14,11 @@
       },
       {
         "label": "發起人",
-        "value": "Roger Lin"
+        "value": "林睿哲 ROGER LIN"
       },
       {
         "label": "同行者",
-        "value": "Filipe Rosa等人"
+        "value": "PIRES FOSA FILIPE MIGUEL等人"
       }
     ]
   },
