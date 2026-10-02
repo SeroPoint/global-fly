@@ -1,8 +1,8 @@
 {
-  "title": "飛行員林睿哲的環球飛行 ",
-  "subtitle": "Pilot Roger’s Around the World Flight",
-  "taglineZh": "我是林睿哲，持有FAA飛行員執照。發起並籌劃跨國環球飛行任務，目前持續進修ing...",
-  "taglineEn": "",
+  "title": "N688TW",
+  "subtitle": "林睿哲的自駕環球飛行",
+  "taglineZh": "純台籍（無外國籍） · 環球飛行",
+  "taglineEn": "THE FIRST EVER PILOT OF PURE TAIWANESE NATIONALITY TO FLY AROUND THE WORLD",
   "backgroundImage": "images/mainpics.png",
   "stats": [
     {
@@ -15,7 +15,7 @@
     },
     {
       "value": "15",
-      "label": "預計航點"
+      "label": "主要航點"
     },
     {
       "value": "10+",
