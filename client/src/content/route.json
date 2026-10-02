@@ -53,7 +53,7 @@
     ]
   },
   "liveTracking": {
-    "title": "我在哪裡",
-    "iframeSrc": "https://www.airnavradar.com/data/registration/N688TW?zoom=3"
+    "title": "",
+    "iframeSrc": ""
   }
 }
