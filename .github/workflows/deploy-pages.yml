@@ -37,6 +37,8 @@ jobs:
 
       - name: Build
         run: pnpm build
+        env:
+          VITE_GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Prepare GitHub Pages files
         run: |

@@ -1,160 +1,109 @@
-# 內容後台 (Decap CMS) 使用與設定說明
+# 內容後台使用說明
 
-這個網站已接上 **Decap CMS**，可以透過瀏覽器登入後台直接編輯內容，
-儲存後會自動 commit 到 GitHub，然後 GitHub Actions 會自動重新部署網站。
+## ⚠️ 安全性說明（必讀）
 
-後台網址（部署完成後）：
+這個後台方案為了「極簡」，把 GitHub Token 編譯進前端 JS，**任何人打開瀏覽器 DevTools 都可以抽出這個 token**。因此：
 
-```
-https://rogerworldflight.com/admin/
-```
-
-或：
-
-```
-https://seropoint.github.io/global-fly/admin/
-```
+- **一定要使用 Fine-grained PAT**，只授權本 repo (`louishoaone/global-fly`) 的 `Contents: Read and write`，不要給任何其他權限
+- 建議每 3 個月換一次 token
+- `admin@flight.com` / `admin000` 的登入只是防呆（擋住一般人誤觸），**擋不住惡意攻擊**
+- 不要在 README 等公開地方貼出後台網址
 
 ---
 
-## 一次性設定 (約 15 分鐘，只需做一次)
+## 一次性設定（約 5 分鐘）
 
-Decap CMS 使用 GitHub 帳號登入，需要兩個東西：
+### 步驟 1：建立 GitHub Fine-grained PAT
 
-1. 一個 **GitHub OAuth App**（讓 CMS 可以用你的帳號 commit）
-2. 一個 **Cloudflare Worker**（代理 OAuth 流程；免費方案就夠用）
+1. 打開 <https://github.com/settings/personal-access-tokens/new>
+2. 設定：
+   - **Token name**：`global-fly-admin`
+   - **Expiration**：建議 90 天
+   - **Repository access**：**Only select repositories** → 選 `louishoaone/global-fly`
+   - **Repository permissions**：
+     - `Contents` → **Read and write**
+     - `Metadata` → **Read-only**（必要）
+     - 其他全部 **No access**
+3. 按 **Generate token**，複製產生的 token（開頭是 `github_pat_...`）
 
-### 步驟 1：建立 GitHub OAuth App
+### 步驟 2：把 Token 加到 repo Secret
 
-1. 打開 <https://github.com/settings/developers>
-2. 點 **New OAuth App**
-3. 填寫：
-   - **Application name**：`Global Fly CMS`
-   - **Homepage URL**：`https://rogerworldflight.com`
-   - **Authorization callback URL**：**先隨便填** `https://example.com/callback`（步驟 3 會改回來）
-4. 建立後會看到 **Client ID**；按 **Generate a new client secret** 產生 **Client Secret**
-5. 把這兩個值先記下來
+1. 打開 <https://github.com/louishoaone/global-fly/settings/secrets/actions>
+2. 按 **New repository secret**
+3. **Name**：`GH_TOKEN`
+4. **Secret**：貼上剛剛複製的 token
+5. **Add secret**
 
-### 步驟 2：部署 Cloudflare Worker (OAuth proxy)
+### 步驟 3：觸發重新部署
 
-Cloudflare 有免費方案，每天 100,000 次請求綽綽有餘。
-
-**選項 A：用網頁介面 (最快)**
-
-1. 打開 <https://dash.cloudflare.com/> → **Workers & Pages** → **Create** → **Create Worker**
-2. 名稱填 `global-fly-cms-oauth`，Deploy
-3. 進入 Worker → **Edit code**
-4. 把 `cms-oauth-worker/worker.js` 的內容整個貼進去，按 **Save and deploy**
-5. 回到 Worker 主頁 → **Settings** → **Variables and Secrets** → **Add variable**（Type 選 **Secret**）：
-   - `OAUTH_CLIENT_ID` = 步驟 1 的 Client ID
-   - `OAUTH_CLIENT_SECRET` = 步驟 1 的 Client Secret
-   - `ALLOWED_ORIGIN` = `https://rogerworldflight.com,https://seropoint.github.io`
-6. 複製 Worker 的網址，例如：`https://global-fly-cms-oauth.<account>.workers.dev`
-
-**選項 B：用 wrangler CLI**
+隨便 push 一次（或到 Actions 頁面手動 re-run），讓新的 build 把 token 編進去。
 
 ```bash
-cd cms-oauth-worker
-npx wrangler login
-npx wrangler deploy
-npx wrangler secret put OAUTH_CLIENT_ID
-npx wrangler secret put OAUTH_CLIENT_SECRET
-npx wrangler secret put ALLOWED_ORIGIN
+git commit --allow-empty -m "Rebuild with GH_TOKEN"
+git push
 ```
 
-### 步驟 3：把 Callback URL 填回 GitHub OAuth App
-
-回到步驟 1 的 OAuth App 設定頁面，把 **Authorization callback URL** 改成：
-
-```
-https://global-fly-cms-oauth.<account>.workers.dev/callback
-```
-
-（換成你實際的 Worker 網址 + `/callback`）
-
-按 **Update application**。
-
-### 步驟 4：把 Worker URL 寫進 CMS 設定
-
-編輯 `client/public/admin/config.yml`，把這一行：
-
-```yaml
-base_url: https://REPLACE-WITH-YOUR-WORKER.workers.dev
-```
-
-換成你的 Worker 網址（**不要**加 `/auth`，只到網域就好）：
-
-```yaml
-base_url: https://global-fly-cms-oauth.<account>.workers.dev
-```
-
-commit + push：
-
-```bash
-git add client/public/admin/config.yml
-git commit -m "Configure Decap CMS OAuth base_url"
-git push origin main
-```
-
-等 GitHub Actions 跑完，就可以打開 `https://rogerworldflight.com/admin/` 登入了。
+等 Actions 綠燈，就完成了。
 
 ---
 
-## 日常使用
+## 使用方式
 
-1. 打開 <https://rogerworldflight.com/admin/>
-2. 點 **Login with GitHub**
-3. 授權（第一次會問一次）
-4. 進去後左邊會看到：
-   - Hero 首頁橫幅
-   - 關於林睿哲
-   - 環球飛行路線
-   - 贊助商
-   - 社群實時動態
-   - 林睿哲的故事
-   - 行動呼籲區塊
-   - Line Pay 贊助區
-   - Footer
-   - 導覽列
-5. 點進任一項，改好後按 **Publish → Publish now**
-6. GitHub Actions 會自動部署，約 1~3 分鐘後網站就會更新
+1. 打開 **<https://rogerworldflight.com/admin/>**
+2. 登入：
+   - Email: `admin@flight.com`
+   - 密碼: `admin000`
+3. 左邊選單選要編輯的區塊（Hero / 關於 / 路線 / 贊助商 / ... / Footer）
+4. 編輯後按 **「完成編輯 (儲存並發布)」**
+5. 系統會自動 commit 到 GitHub，GitHub Actions 1~3 分鐘後自動部署
+6. 重新整理網站即可看到變更
 
----
+### 圖片上傳
 
-## 權限管理
+有圖片的欄位（例如背景圖、QR Code、贊助商 Logo）會有「上傳新圖片」按鈕：
 
-只要在 GitHub 上是 `SeroPoint/global-fly` repo 的 **collaborator**（Settings → Collaborators 加人），
-就可以用該 GitHub 帳號登入後台。
+- 點按鈕選檔案 → 自動上傳到 `client/public/images/<timestamp>_<filename>`
+- 路徑會自動填入 input
+- 按「完成編輯」才會真正 commit JSON 變更
 
-要收回權限：到 repo 設定移除 collaborator 即可。
+### 修改登入帳密
+
+編輯 `client/src/pages/Admin.tsx` 這兩行：
+
+```ts
+const ADMIN_EMAIL = "admin@flight.com";
+const ADMIN_PASSWORD = "admin000";
+```
+
+改完 push，重新 build 後生效。
 
 ---
 
 ## 故障排除
 
-**登入後跳 404 / 空白頁**
+**登入後點「完成編輯」出現「找不到 GitHub Token」**
 
-- Worker URL 填錯；確認 `base_url` 沒多 `/` 或 `/auth`
-- GitHub OAuth App 的 Callback URL 和 Worker 不一致
+- `GH_TOKEN` secret 沒設；或設完後還沒重新 build
+- 到 Actions 看最新 build 有沒有跑過
 
-**登入後說 `Config Errors`**
+**出現 `PUT ... failed: 404`**
 
-- `client/public/admin/config.yml` 有縮排或語法錯誤
-- 直接到瀏覽器打開 `https://rogerworldflight.com/admin/config.yml` 看是否能顯示
+- Token 權限不夠，請確認 fine-grained PAT 的 Contents 是 **Read and write**
+- Repository 選擇是否包含 `louishoaone/global-fly`
 
-**改完內容後網站沒更新**
+**出現 `PUT ... failed: 409 Conflict`**
 
-- 到 <https://github.com/SeroPoint/global-fly/actions> 看最新的 workflow 有沒有跑綠燈
-- 如果 Actions 失敗，點進去看錯誤訊息
+- 檔案在你編輯期間被別人（或你自己在另一分頁）改過
+- 重新整理頁面後再編輯
 
-**想本地測試後台**
+**圖片上傳成功但網站看不到**
 
-```bash
-# terminal 1
-pnpm dev
-# terminal 2
-npx decap-server
-```
+- Build 還沒完成，等 1~3 分鐘
+- 到 <https://github.com/louishoaone/global-fly/actions> 看 build 狀態
 
-然後編輯 `config.yml` 暫時加一行 `local_backend: true`，打開 `http://localhost:3000/admin/`
-（記得測完要把 `local_backend: true` 拿掉再 push）
+---
+
+## Token 失效 / 更換
+
+Fine-grained PAT 有效期到了會自動失效，網站不會壞，只是「完成編輯」會噴錯。
+重複步驟 1~3 換一組新的即可。

@@ -4,6 +4,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import Admin from "./pages/Admin";
 import Home from "./pages/Home";
 import Livestream from "./pages/Livestream";
 import Sponsors from "./pages/Sponsors";
@@ -22,6 +23,10 @@ function Router() {
       <Route path={"/global-fly/livestream"} component={Livestream} />
       <Route path={"/story"} component={Story} />
       <Route path={"/global-fly/story"} component={Story} />
+      <Route path={"/admin"} component={Admin} />
+      <Route path={"/admin/"} component={Admin} />
+      <Route path={"/global-fly/admin"} component={Admin} />
+      <Route path={"/global-fly/admin/"} component={Admin} />
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
       <Route component={NotFound} />
